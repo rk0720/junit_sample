@@ -2,9 +2,17 @@ package com.example;
 
 import static org.assertj.core.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class CalculatorTest {
+	
+	private Calculator sut;
+	
+	@BeforeEach
+	public void setUp() {
+		this.sut = new Calculator();
+	}
 
 	@Test
 	void multiplyで3と4の蒸散結果を取得() {
