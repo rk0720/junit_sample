@@ -2,8 +2,12 @@ package com.example;
 
 import static org.assertj.core.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class CalculatorTest {
 	
@@ -39,5 +43,39 @@ class CalculatorTest {
 		double actual = sut.devide(3, 2);
 		
 		assertThat(actual).isEqualTo(excepted);
+	}
+	
+	@Test
+	public void 整数0を除算する() throws Exception {
+		assertThatThrownBy(() -> {
+			Integer actual = 5 /0 ;
+		})
+		.isInstanceOf(ArithmeticException.class)
+		.hasMessage("/ by zero");
+	}
+	
+	@ParameterizedTest
+	@ValueSource(ints = {1, 3, 5, -3, -9, Integer.MAX_VALUE})
+	public void 複数のパラメータが奇数であるかを検証する (int param) {
+		boolean actual = sut.isOdd(param);
+		boolean expected = true;
+		
+		assertThat(actual).isEqualTo(expected);
+	}
+	
+	@ParameterizedTest
+	@CsvSource({
+		"6,3,2.0",
+		"5,3,1.6666666666666667",
+		"0,5,0.0"
+	})
+	public void 一度に複数のパラメータを扱う(int x, int y, double expected) {
+		double actual = sut.devide(x, y);
+		assertThat(actual).isEqualTo(expected);
+	}
+	
+	@AfterEach
+	public void tearDown() {
+		this.sut = null;
 	}
 }
