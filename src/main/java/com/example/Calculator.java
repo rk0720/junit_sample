@@ -7,8 +7,8 @@ public class Calculator {
     }
     
     // 除算結果を返します
-    public int devide(int x, int y) {
-        return x / y;
+    public double devide(int x, int y) {
+        return (double)x / (double)y;
     }
 
     // 加算結果を返します
